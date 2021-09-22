@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Илья](https://up.htmlacademy.ru/javascript/24/user/1332139).
-* Наставник: `Неизвестно`.
+* Наставник: [Елена Грицук](https://up.htmlacademy.ru/javascript/24/user/199079).
 
 ---
 
