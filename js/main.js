@@ -6,10 +6,10 @@ function randomInteger(min, max) {
 alert(randomInteger(0, 99));
 
 
-function randomFractional(min, max) {
+function randomFractional(min, max, rate ) {
   // случайное число от min до (max+1)
-  const decimal =  min + Math.random() * (max + 1 - min);
-  return decimal.toFixed(3);
+  const decimal = min + Math.random() * (max + 1 - min);
+  return decimal.toFixed(rate);
   //убирает знаки после запятой
 }
-alert(randomFractional(0, 3.5))
+alert(randomFractional(0, 3.555, 9));
