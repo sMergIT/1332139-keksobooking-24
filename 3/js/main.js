@@ -19,12 +19,6 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const checkIns = ['12:00', '13:00', '14:00'];
 const checkOuts = ['12:00', '13:00', '14:00'];
-const maxLength = features.length;
-const maxLengthPhoto = photos.length;
-const lengthOfArray = getRandomInteger(1, maxLength);
-const lengthOfArrays = getRandomInteger(1, maxLengthPhoto);
-const array = [];
-const arrays = [];
 const lat = getRandomFractional(35.65000, 35.70000, 5);
 const lng = getRandomFractional(139.70000, 139.80000, 5);
 function generateOffers() {
@@ -40,7 +34,8 @@ function generateOffers() {
       },
       offer: {
         title: 'Cамый дружественный сервис по поиску кексо-попутчиков',
-        adress: lat + ', ' + lng,
+        /* adress: lat + ', ' + lng, */
+        adress: getRandomFractional(35.65000, 35.70000, 5) + ',' + getRandomFractional(139.70000, 139.80000, 5),
         type: types[index],
         checkin: checkIns[indexCheckin],
         checkout: checkOuts[indexCheckout],
@@ -48,6 +43,7 @@ function generateOffers() {
         price: getRandomInteger(0, 99),
         rooms: getRandomInteger(0, 111),
         guests: getRandomInteger(0, 999),
+        features:generateFeatures(),
       },
       location: {
         lat: getRandomFractional(35.65000, 35.70000, 5),
@@ -59,28 +55,34 @@ function generateOffers() {
   return offers;
 };
 
-
 function generateFeatures() {
-  while (array.length < lengthOfArray) {
-    const indexOfEl = getRandomInteger(0, maxLength - 1);
-    const el = features[indexOfEl];
-    if (!array.includes(el)) {
-      array.push(el);
+  const generateArray = [];
+  const maxLength = features.length;
+  const lengthOfArray = getRandomInteger(1, maxLength);
+  while (generateArray.length < lengthOfArray) {
+    const indexOfFeatures = getRandomInteger(0, maxLength - 1);
+    const indexFeatures = features[indexOfFeatures];
+    if (!generateArray.includes(indexFeatures)) {
+      generateArray.push(indexFeatures);
     }
-    return array;
   }
-}
+  return generateArray;
+};
 
 function generatePhoto() {
-  while (arrays.length < lengthOfArrays) {
-    const indexOfLe = getRandomInteger(0, maxLengthPhoto - 1);
-    const le = photos[indexOfLe];
-    if (!array.includes(le)) {
-      array.push(le);
+  const generateArray = [];
+  const maxLengthPhoto = photos.length;
+  const lengthOfArrays = getRandomInteger(1, maxLengthPhoto);
+  while (generateArray.length < lengthOfArrays) {
+    const indexOfPhotos = getRandomInteger(0, maxLengthPhoto - 1);
+    const indexPhotos = photos[indexOfPhotos];
+    if (!generateArray.includes(indexPhotos)) {
+      generateArray.push(indexPhotos);
     }
-    return arrays;
+    return generateArray;
   }
-}
+};
+
 const offers = generateOffers();
 const featuress = generateFeatures();
 const photosIndex = generatePhoto();
