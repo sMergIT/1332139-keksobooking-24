@@ -79,4 +79,4 @@ function generatePhoto() {
   }
   return pictures;
 }
-const announcement = generateOffers();
+const announcements = generateOffers();
