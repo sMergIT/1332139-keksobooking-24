@@ -1,4 +1,4 @@
-// Функция взята из интернета и доработана
+/* // Функция взята из интернета и доработана
 // Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_throttle
 
 function throttle (callback, delayBetweenFrames) {
@@ -23,3 +23,4 @@ function throttle (callback, delayBetweenFrames) {
 }
 
 export {throttle};
+ */
