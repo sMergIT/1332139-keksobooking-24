@@ -1,30 +1,64 @@
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+import { announcements } from './data.js';
+
+const cardTemplate = document.querySelector('#card').content;
+const popUpContent = cardTemplate.querySelector('.popup');
+const mapTemplate = document.querySelector('#map-canvas');
+const recoveryData = announcements[0];
 const signaturesName = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
   hotel: 'Отель',
-}
+};
 // Генерация разметки похожих объявлений
-function renderCard (card) {
-const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const cardElement = cardTemplate.cloneNode(true);
-const cardFirstPhotoElement = cardElement.querySelector('.popup__photos').src = card.offer.photos;
-const title = cardElement.querySelector('.popup__title').textContent = card.offer.title;
-const adress = cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
-const price = cardElement.querySelector('.popup__text--price').textContent = (`${card.offer.price} ₽ночь`);
-const type = cardElement.querySelector('.popup__type').textContent = signaturesName[card.offer.type];
-const capacity = cardElement.querySelector('.popup__text--capacity').textContent =(`${card.offer.rooms} комнаты для`) (`${card.offer.guests} гостей`);
-const time = cardElement.querySelector('.popup__text--time').textContent = (`Заезд после ${card.offer.checkin}`) (`выезд до${card.offer.checkout} `);
-const description = cardElement.querySelector('.popup__description').textContent = card.offer.description;
-const avatar = cardElement.querySelector('.popup__avatar').src = card.author.avatar;
-features.forEach((feature) => {
-  if (!cardElement.offer.features.includes(feature)) {
-    cardElement.querySelector('.popup__feature--' + feature).remove();
+const getMarkupSimilarAnnouncements = () => {
+
+  const cardElement = popUpContent.cloneNode(true);
+
+  const popupTitle = cardElement.querySelector('.popup__title');
+  const popupAddress = cardElement.querySelector('.popup__text--address');
+  const popupPrice = cardElement.querySelector('.popup__text--price');
+  const popupType = cardElement.querySelector('.popup__type');
+  const popupFeatures = cardElement.querySelector('.popup__features');
+  const popupCapacity = cardElement.querySelector('.popup__text--capacity');
+  const popupTime = cardElement.querySelector('.popup__text--time');
+  const popupDescription = cardElement.querySelector('.popup__description');
+  const popupPhotos = cardElement.querySelector('.popup__photos');
+  const popupAvatar = cardElement.querySelector('.popup__avatar');
+
+  popupTitle.textConent = recoveryData.offer.title;
+  popupAddress.textConent = recoveryData.offer.adress;
+  popupPrice.textConent = `${recoveryData.offer.price} ₽/ночь`;
+  popupType.textConent = signaturesName[recoveryData.offer.type];
+  popupCapacity.textConent = `${recoveryData.offer.rooms} комнаты для ${recoveryData.offer.guests} гостей`;
+  popupTime.textContent = `Заезд после ${recoveryData.offer.checkin}, выезд до ${recoveryData.offer.checkout}`;
+  popupDescription.textContent = recoveryData.offer.description;
+  popupAvatar.src = recoveryData.author.avatar;
+
+  if (!recoveryData.offer.features) {
+    popupFeatures.classList.add('visually-hidden');
+  } else {
+    const bookingFeatures = recoveryData.offer.features;
+    const containerFeatures = popupFeatures;
+    const catalogueFeature = containerFeatures.querySelectorAll('.popup__feature');
+    catalogueFeature.forEach((featuresListItem) => {
+      const isNecessary = bookingFeatures.some((bookingFeatures) => featuresListItem.classList.contains(`popup__feature--${bookingFeatures}`),
+      );
+      if (!isNecessary) {
+        featuresListItem.remove();
+      }
+    });
   }
-})
-if (card.offer.photos.length > 0) {
-  cardFirstPhotoElement.src = card.offer.photos[0];
-}
-}
+  const popUpPhotoElement = popupPhotos;
+  popUpPhotoElement.innerHTML = '';
+  recoveryData.offer.photos.forEach((photoList) => {
+    const pic = document.createElement('pic');
+    pic.classList.add('popup__photo');
+    pic.src = photoList;
+    popUpPhotoElement.appendChild(pic);
+  });
+  mapTemplate.appendChild(cardElement);
+};
+
+getMarkupSimilarAnnouncements();
