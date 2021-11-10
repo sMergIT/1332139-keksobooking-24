@@ -4,7 +4,7 @@ const checkIns = ['12:00', '13:00', '14:00'];
 const checkOuts = ['12:00', '13:00', '14:00'];
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const photography = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const serviceTitle = ['Cамый дружественный сервис по поиску кексо-попутчиков', 'Варламов точно одобрит', 'Дом в стиле многоэтажки', 'Отель Оверлук', 'Милый домик в Твин Пикс'];
+const serviceTitle = ['Cамый дружественный сервис по поиску кексо-попутчиков', 'Варламов точно одобрит', 'Дом в стиле многоэтажки', 'Отель Оверлук', 'Милый домик в Твин Пикс', 'Сам Норман Фостер позавидует'];
 const descriptionEnumeration = ['Квартира в стиле модерн', 'Квартира без ремонта, но в стиле LOFT', 'Дизайнер слишком долго игрался с красками, но проиграл', 'В данной команте был найден молот Тора, но это не точно'];
 const avatarIndex = getRandomInteger(1, 9);
 function generateOffers() {
