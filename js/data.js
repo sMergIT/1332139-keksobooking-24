@@ -1,15 +1,18 @@
-import { getRandomInteger, getRandomFractional } from './util';
-export const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-export const checkIns = ['12:00', '13:00', '14:00'];
-export const checkOuts = ['12:00', '13:00', '14:00'];
-export const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-export const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-
-export function generateOffers() {
+import { getRandomInteger, getRandomFractional } from './util.js';
+const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const checkIns = ['12:00', '13:00', '14:00'];
+const checkOuts = ['12:00', '13:00', '14:00'];
+const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const photography = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const serviceTitle = ['Cамый дружественный сервис по поиску кексо-попутчиков', 'Варламов точно одобрит', 'Дом в стиле многоэтажки', 'Отель Оверлук', 'Милый домик в Твин Пикс'];
+const descriptionEnumeration = ['Квартира в стиле модерн', 'Квартира без ремонта, но в стиле LOFT', 'Дизайнер слишком долго игрался с красками, но проиграл', 'В данной команте был найден молот Тора, но это не точно'];
+const avatarIndex = getRandomInteger(1, 9);
+function generateOffers() {
   const offers = [];
   for (let i = 0; i < 10; i++) {
-    const avatarNumber = i < 9 ? 'img/avatars/user0' : 'img/avatars/user';
-    const index = getRandomInteger(0, types.length - 1);
+    const indexType = getRandomInteger(0, types.length - 1);
+    const indexTitle = getRandomInteger(0, serviceTitle.length - 1);
+    const indexDescription = getRandomInteger(0, descriptionEnumeration.length - 1);
     const indexCheckin = getRandomInteger(0, checkIns.length - 1);
     const indexCheckout = getRandomInteger(0, checkOuts.length - 1);
     const lat = getRandomFractional(35.65000, 35.70000, 5);
@@ -17,20 +20,21 @@ export function generateOffers() {
 
     offers[i] = {
       author: {
-        avatar: avatarNumber + (i + 1) + '.png',
+        /* avatar: 'img/avatars/user0' + avatarIndex + '.png', */
+        avatar: `img/avatars/user0${avatarIndex}.png`,
       },
       offer: {
-        title: 'Cамый дружественный сервис по поиску кексо-попутчиков',
-        adress: lat + ', ' + lng,
-        type: types[index],
+        title: serviceTitle[indexTitle],
+        address: (`${lat}, ${lng}`),
+        type: types[indexType],
         checkin: checkIns[indexCheckin],
         checkout: checkOuts[indexCheckout],
-        description: 'Настолько светлого и прострорного помещения просто не найти на других сервисах',
-        price: getRandomInteger(0, 99),
-        rooms: getRandomInteger(0, 111),
+        description: descriptionEnumeration[indexDescription],
+        price: getRandomInteger(0, 999999),
+        rooms: getRandomInteger(0, 1111),
         guests: getRandomInteger(0, 999),
         features: generateFeatures(),
-        photo: generatePhotos(),
+        photos: generatePhotos(),
       },
       location: {
         lat: lat,
@@ -41,7 +45,7 @@ export function generateOffers() {
   return offers;
 }
 
-export function generateFeatures() {
+function generateFeatures() {
   const conveniences = [];
   const maxLength = features.length;
   const lengthOfArray = getRandomInteger(1, maxLength);
@@ -55,13 +59,13 @@ export function generateFeatures() {
   return conveniences;
 }
 
-export function generatePhotos() {
+function generatePhotos() {
   const pictures = [];
-  const maxLengthPhoto = photos.length;
+  const maxLengthPhoto = photography.length;
   const lengthOfArrays = getRandomInteger(1, maxLengthPhoto);
   while (pictures.length < lengthOfArrays) {
     const indexOfPhotos = getRandomInteger(0, maxLengthPhoto - 1);
-    const indexPhotos = photos[indexOfPhotos];
+    const indexPhotos = photography[indexOfPhotos];
     if (!pictures.includes(indexPhotos)) {
       pictures.push(indexPhotos);
     }
@@ -69,4 +73,6 @@ export function generatePhotos() {
   return pictures;
 }
 
-export const announcements = generateOffers();
+const announcements = generateOffers();
+
+export { announcements };
