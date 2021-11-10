@@ -1,3 +1,4 @@
+import { announcements } from './data.js';
 const cardTemplate = document.querySelector('#card').content;
 const mapTemplate = document.querySelector('#map-canvas');
 const popupContent = cardTemplate.querySelector('.popup');
