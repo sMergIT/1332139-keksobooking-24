@@ -6,10 +6,10 @@ const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const photography = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const serviceTitle = ['Cамый дружественный сервис по поиску кексо-попутчиков', 'Варламов точно одобрит', 'Дом в стиле многоэтажки', 'Отель Оверлук', 'Милый домик в Твин Пикс'];
 const descriptionEnumeration = ['Квартира в стиле модерн', 'Квартира без ремонта, но в стиле LOFT', 'Дизайнер слишком долго игрался с красками, но проиграл', 'В данной команте был найден молот Тора, но это не точно'];
+const avatarIndex = getRandomInteger(1, 9);
 function generateOffers() {
   const offers = [];
   for (let i = 0; i < 10; i++) {
-    const avatarNumber = i < 9 ? 'img/avatars/user0' : 'img/avatars/user';
     const indexType = getRandomInteger(0, types.length - 1);
     const indexTitle = getRandomInteger(0, serviceTitle.length - 1);
     const indexDescription = getRandomInteger(0, descriptionEnumeration.length - 1);
@@ -20,11 +20,11 @@ function generateOffers() {
 
     offers[i] = {
       author: {
-        avatar: avatarNumber + (i + 1) + '.png',
+        avatar: `img/avatars/user0${avatarIndex}.png`,
       },
       offer: {
         title: serviceTitle[indexTitle],
-        adress: (`${lat}, ${lng}`),
+        address: (`${lat}, ${lng}`),
         type: types[indexType],
         checkin: checkIns[indexCheckin],
         checkout: checkOuts[indexCheckout],
@@ -73,4 +73,5 @@ function generatePhotos() {
 }
 
 const announcements = generateOffers();
-export { types, checkIns, checkOuts, features, photography, generateOffers, generateFeatures, generatePhotos, announcements };
+
+export { announcements };
