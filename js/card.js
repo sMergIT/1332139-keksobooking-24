@@ -1,5 +1,4 @@
 import { announcements } from './data.js';
-
 const cardTemplate = document.querySelector('#card').content;
 const mapTemplate = document.querySelector('#map-canvas');
 const popupContent = cardTemplate.querySelector('.popup');
@@ -13,7 +12,7 @@ const signaturesName = {
 };
 
 // Генерация разметки похожих объявлений
-const getMarkupSimilarAnnouncements = (renderCard) => {
+const getMarkupSimilarAnnouncements = (card) => {
   const cardElement = popupContent.cloneNode(true);
 
   const popupTitle = cardElement.querySelector('.popup__title');
@@ -27,20 +26,20 @@ const getMarkupSimilarAnnouncements = (renderCard) => {
   const popupPhotos = cardElement.querySelector('.popup__photos');
   const popupAvatar = cardElement.querySelector('.popup__avatar');
 
-  popupTitle.textConent = renderCard.offer.title;
-  popupAddress.textConent = renderCard.offer.address;
-  popupPrice.textConent = `${renderCard.offer.price} ₽/ночь`;
-  popupType.textConent = signaturesName[renderCard.offer.type];
-  popupCapacity.textConent = `${renderCard.offer.rooms} комнаты для ${renderCard.offer.guests} гостей`;
-  popupTime.textContent = `Заезд после ${renderCard.offer.checkin}, выезд до ${renderCard.offer.checkout}`;
-  popupDescription.textContent = renderCard.offer.description;
-  popupAvatar.src = renderCard.author.avatar;
+  popupTitle.textContent = card.offer.title;
+  popupAddress.textContent = card.offer.address;
+  popupPrice.textContent = `${card.offer.price} ₽/ночь`;
+  popupType.textContent = signaturesName[card.offer.type];
+  popupCapacity.textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
+  popupTime.textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
+  popupDescription.textContent = card.offer.description;
+  popupAvatar.src = card.author.avatar;
 
 
-  if (!renderCard.offer.features) {
+  if (!card.offer.features) {
     popupFeatures.classList.add('visually-hidden');
   } else {
-    const bookingFeatures = renderCard.offer.features;
+    const bookingFeatures = card.offer.features;
     const containerFeatures = popupFeatures;
     const catalogueFeature = containerFeatures.querySelectorAll('.popup__feature');
     catalogueFeature.forEach((featuresListItem) => {
@@ -53,7 +52,7 @@ const getMarkupSimilarAnnouncements = (renderCard) => {
   }
   const popUpPhotoElement = popupPhotos;
   popUpPhotoElement.innerHTML = '';
-  renderCard.offer.photos.forEach((photoList) => {
+  card.offer.photos.forEach((photoList) => {
     const img = document.createElement('img');
     img.classList.add('popup__photo');
     img.src = photoList;
