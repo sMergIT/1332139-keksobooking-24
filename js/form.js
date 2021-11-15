@@ -13,6 +13,8 @@ const MIN_RENT_PRICE = {
   palace: 10000,
 };
 
+const PRICE_DEFAULT = 1000;
+
 const adForm = document.querySelector('.ad-form');
 const adRoomsNumber = adForm.querySelector('#room_number');
 const adType = adForm.querySelector('#type');
@@ -20,6 +22,7 @@ const adPrice = adForm.querySelector('#price');
 const adTimeIn = adForm.querySelector('#timein');
 const adTimeOut = adForm.querySelector('#timeout');
 const adGuestsNumber = adForm.querySelector('#capacity');
+const adClearForm = adForm.querySelector('.ad-form__reset');
 
 //Проверка валидности гостей/комнат
 const onRoomCapacityChange = () => {
@@ -61,3 +64,12 @@ const adFormValidition = () => {
   adTimeOut.addEventListener('change', onChangeTime);
 };
 adFormValidition();
+
+//Сброс плейсхолдера и формы
+const onSetFormReset = () => {
+  adForm.reset();
+  adPrice.placeholder = PRICE_DEFAULT;
+};
+onSetFormReset();
+
+adClearForm.addEventListener('click', onSetFormReset);
