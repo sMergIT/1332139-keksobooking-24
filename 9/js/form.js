@@ -69,6 +69,7 @@ adFormValidition();
 const onSetFormReset = () => {
   adForm.reset();
   adPrice.placeholder = PRICE_DEFAULT;
+  adPrice.min = PRICE_DEFAULT;
 };
 onSetFormReset();
 
