@@ -36,11 +36,8 @@ const onRoomCapacityChange = () => {
 
 // Выбор опции(время заезда и выезда) одного поля автоматически изменят значение другого
 const onChangeTime = (evt) => {
-  if (evt.target === adTimeIn) {
-    adTimeOut.value = adTimeIn.value;
-  } if (evt.target === adTimeOut) {
-    adTimeIn.value === adTimeOut.value;
-  }
+  adTimeOut.value = evt.target.value;
+  adTimeIn.value === evt.target.value;
 };
 
 adForm.addEventListener('submit', (evt) => {
