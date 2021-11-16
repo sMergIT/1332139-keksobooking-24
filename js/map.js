@@ -55,9 +55,9 @@ const setPins = () => {
       .bindPopup(getMarkupSimilarAnnouncements(card));
   });
 };
+document.querySelector('#address').value = '35.6895, 139.692';
 const addressInput = document.querySelector('#address');
-addressInput.value = '35.681729, 139.753927';
-const setMainMarkerAddress = () => mainPinMarker.on('moveend', (evt) => {
+const setMainMarkerAddress = () => mainPin.on('moveend', (evt) => {
   const mainPinCoordinates = (evt.target.getLatLng());
   addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
 });
