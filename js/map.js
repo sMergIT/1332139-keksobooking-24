@@ -47,9 +47,9 @@ const setPins = () => {
       lat: card.location.lat,
       lng: card.location.lng,
     },
-    {
-      icon,
-    });
+      {
+        icon,
+      });
     marker
       .addTo(map)
       .bindPopup(getMarkupSimilarAnnouncements(card));
