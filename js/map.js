@@ -63,4 +63,3 @@ const setMainMarkerAddress = () => mainPin.on('moveend', (evt) => {
 });
 
 export { setPins, setMainMarkerAddress };
-
