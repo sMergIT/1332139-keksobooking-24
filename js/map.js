@@ -60,7 +60,6 @@ const setPins = () => {
 
 mainPin.on('moveend', (evt) => {
   const mainPinCoordinates = evt.target.getLatLng();
-  addressInput.value = '35.681729, 139.753927';
   addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
 });
 
