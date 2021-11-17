@@ -1,4 +1,4 @@
-/* // Функция взята из интернета и доработана
+/* /// Функция взята из интернета и доработана
 // Источник - https://www.freecodecamp.org/news/javascript-debounce-example
 
 function debounce (callback, timeoutDelay = 500) {
@@ -18,6 +18,5 @@ function debounce (callback, timeoutDelay = 500) {
     // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
 }
-
 export {debounce};
  */

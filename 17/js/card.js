@@ -1,4 +1,4 @@
-import { announcements } from './data.js';
+/* import { announcements } from './data.js'; */
 const cardTemplate = document.querySelector('#card').content;
 const popupContent = cardTemplate.querySelector('.popup');
 
@@ -64,4 +64,4 @@ export const getMarkupSimilarAnnouncements = (card) => {
   return cardElement;
 };
 
-getMarkupSimilarAnnouncements(announcements[0]);
+export const getMarkupInput = getMarkupSimilarAnnouncements;

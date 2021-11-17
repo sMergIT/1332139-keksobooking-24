@@ -1,8 +1,7 @@
-import { getMarkupSimilarAnnouncements } from './card.js';
-import { announcements } from './data.js';
-import { adClearForm } from './form.js';
+import { getMarkupInput } from './card.js';
+import { inputDataApi } from './main.js';
 import { activatePopupForm } from './popup-form.js';
-
+const markerGroup = L.layerGroup();
 const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
   addressInput.value = '35.681729, 139.753927';
@@ -39,7 +38,7 @@ const mainPin = L.marker(
 
 mainPin.addTo(map);
 
-announcements.map((card) => {
+inputDataApi.map((card) => {
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
@@ -54,7 +53,7 @@ announcements.map((card) => {
   });
   marker
     .addTo(map)
-    .bindPopup(getMarkupSimilarAnnouncements(card));
+    .bindPopup(getMarkupInput(card));
 });
 
 const resetMapAndMarker = () => {
@@ -70,11 +69,13 @@ const resetMapAndMarker = () => {
   map.closePopup();
 };
 
-adClearForm.addEventListener('click', resetMapAndMarker);
+const onRemovePins = () => {
+  markerGroup.clearLayers();
+};
 
 mainPin.on('move', (evt) => {
-  const mainPinCoordinates = evt.target.getLatLng();
+  const mainPinCoordinates = (evt.target.getLatLng());
   addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
 });
 
-export { resetMapAndMarker };
+export { resetMapAndMarker, onRemovePins };
