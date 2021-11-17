@@ -1,6 +1,5 @@
 import { announcements } from './data.js';
 const cardTemplate = document.querySelector('#card').content;
-const mapTemplate = document.querySelector('#map-canvas');
 const popupContent = cardTemplate.querySelector('.popup');
 
 const signaturesName = {
@@ -12,7 +11,7 @@ const signaturesName = {
 };
 
 // Генерация разметки похожих объявлений
-const getMarkupSimilarAnnouncements = (card) => {
+export const getMarkupSimilarAnnouncements = (card) => {
   const cardElement = popupContent.cloneNode(true);
 
   const popupTitle = cardElement.querySelector('.popup__title');
@@ -50,6 +49,7 @@ const getMarkupSimilarAnnouncements = (card) => {
       }
     });
   }
+
   const popUpPhotoElement = popupPhotos;
   popUpPhotoElement.innerHTML = '';
   card.offer.photos.forEach((photoList) => {
@@ -60,7 +60,8 @@ const getMarkupSimilarAnnouncements = (card) => {
     img.height = 45;
     popUpPhotoElement.appendChild(img);
   });
-  mapTemplate.appendChild(cardElement);
+
+  return cardElement;
 };
 
 getMarkupSimilarAnnouncements(announcements[0]);

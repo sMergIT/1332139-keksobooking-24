@@ -3,8 +3,8 @@ const adFormElement = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const mapfiltersElementAll = mapFilters.querySelectorAll('.map__filter');
 const mapFiltresElementFeatures = mapFilters.querySelector('.map__features');
-
-const activePopupForm = () => {
+//Активация формы
+const activatePopupForm = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
   adFormElement.forEach((adFormElements) => {
@@ -15,7 +15,7 @@ const activePopupForm = () => {
   });
   mapFiltresElementFeatures.removeAttribute('disabled', '');
 };
-
+//Деактивация формы
 const deactivatePopupForm = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
@@ -28,4 +28,4 @@ const deactivatePopupForm = () => {
   mapFiltresElementFeatures.setAttribute('disabled', '');
 };
 
-export { activePopupForm, deactivatePopupForm };
+export { activatePopupForm, deactivatePopupForm };
