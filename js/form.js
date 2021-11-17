@@ -72,5 +72,5 @@ const onSetFormReset = () => {
   adPrice.min = PRICE_DEFAULT;
 };
 onSetFormReset();
-
+//Событие на очищение формы
 adClearForm.addEventListener('click', onSetFormReset);

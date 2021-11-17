@@ -3,7 +3,6 @@ import { announcements } from './data.js';
 import { adClearForm } from './form.js';
 import { activatePopupForm } from './popup-form.js';
 
-
 const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
   addressInput.value = '35.681729, 139.753927';
@@ -76,4 +75,5 @@ mainPin.on('move', (evt) => {
   const mainPinCoordinates = evt.target.getLatLng();
   addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
 });
+
 export { resetMapAndMarker };
