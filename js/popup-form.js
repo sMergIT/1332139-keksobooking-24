@@ -4,7 +4,7 @@ const mapFilters = document.querySelector('.map__filters');
 const mapfiltersElementAll = mapFilters.querySelectorAll('.map__filter');
 const mapFiltresElementFeatures = mapFilters.querySelector('.map__features');
 
-const activePopupForm = () => {
+const activatePopupForm = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
   adFormElement.forEach((adFormElements) => {
@@ -28,4 +28,4 @@ const deactivatePopupForm = () => {
   mapFiltresElementFeatures.setAttribute('disabled', '');
 };
 
-export { activePopupForm, deactivatePopupForm };
+export { activatePopupForm, deactivatePopupForm };

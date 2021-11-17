@@ -1,9 +1,13 @@
 import { getMarkupSimilarAnnouncements } from './card.js';
 import { announcements } from './data.js';
-import { activePopupForm } from './popup-form.js';
+import { adClearForm } from './form.js';
+import { activatePopupForm } from './popup-form.js';
 
+
+const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
-  activePopupForm();
+  addressInput.value = '35.681729, 139.753927';
+  activatePopupForm();
 })
   .setView({
     lat: 35.681729,
@@ -18,7 +22,7 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '.../img/main-pin.svg',
+  iconUrl: '../img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -36,30 +40,40 @@ const mainPin = L.marker(
 
 mainPin.addTo(map);
 
-const setPins = () => {
-  announcements.map((card) => {
-    const icon = L.icon({
-      iconUrl: '.../img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
-    const marker = L.marker({
-      lat: card.location.lat,
-      lng: card.location.lng,
-    },
-    {
-      icon,
-    });
-    marker
-      .addTo(map)
-      .bindPopup(getMarkupSimilarAnnouncements(card));
+announcements.map((card) => {
+  const icon = L.icon({
+    iconUrl: '../img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
   });
-};
-const addressInput = document.querySelector('#address');
-document.querySelector('#address').value = '35.6895, 139.692';
-const setMainMarkerAddress = () => mainPin.on('moveend', (evt) => {
-  const mainPinCoordinates = (evt.target.getLatLng());
-  addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
+  const marker = L.marker({
+    lat: card.location.lat,
+    lng: card.location.lng,
+  },
+  {
+    icon,
+  });
+  marker
+    .addTo(map)
+    .bindPopup(getMarkupSimilarAnnouncements(card));
 });
 
-export { setPins, setMainMarkerAddress };
+const resetMapAndMarker = () => {
+  mainPin.setLatLng({
+    lat: 35.6895,
+    lng: 139.692,
+  });
+
+  map.setView({
+    lat: 35.6895,
+    lng: 139.692,
+  }, 10);
+  map.closePopup();
+};
+adClearForm.addEventListener('click', resetMapAndMarker);
+
+mainPin.on('move', (evt) => {
+  const mainPinCoordinates = evt.target.getLatLng();
+  addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
+});
+export { resetMapAndMarker };

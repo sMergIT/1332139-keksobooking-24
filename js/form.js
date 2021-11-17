@@ -22,7 +22,7 @@ const adPrice = adForm.querySelector('#price');
 const adTimeIn = adForm.querySelector('#timein');
 const adTimeOut = adForm.querySelector('#timeout');
 const adGuestsNumber = adForm.querySelector('#capacity');
-const adClearForm = adForm.querySelector('.ad-form__reset');
+export const adClearForm = adForm.querySelector('.ad-form__reset');
 
 //Проверка валидности гостей/комнат
 const onRoomCapacityChange = () => {

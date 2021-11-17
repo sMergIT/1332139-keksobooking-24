@@ -59,6 +59,8 @@ export const getMarkupSimilarAnnouncements = (card) => {
     img.height = 45;
     popUpPhotoElement.appendChild(img);
   });
+
+  return cardElement;
 };
 
 getMarkupSimilarAnnouncements(announcements[0]);
