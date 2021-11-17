@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomFractional } from './util.js';
+/* import { getRandomInteger, getRandomFractional } from './util.js';
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const checkIns = ['12:00', '13:00', '14:00'];
 const checkOuts = ['12:00', '13:00', '14:00'];
@@ -74,4 +74,4 @@ function generatePhotos() {
 
 const announcements = generateOffers();
 
-export { announcements };
+export { announcements }; */
