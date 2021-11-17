@@ -1,4 +1,5 @@
 import { sendData } from './backend.js';
+import { resetMapAndMarker } from './map.js';
 import { onShowPopupError, onShowPopupSeccess } from './popupuser.js';
 
 const selectionOfGuestRooms = {
@@ -73,9 +74,11 @@ const onSetFormReset = () => {
   adForm.reset();
   adPrice.placeholder = PRICE_DEFAULT;
   adPrice.min = PRICE_DEFAULT;
+  resetMapAndMarker();
 };
 
-onSetFormReset();
 //Событие на очищение формы
-adClearForm.addEventListener('click', onSetFormReset);
-export { onSetFormReset };
+const onResetForm = () => {
+  adClearForm.addEventListener('click', onSetFormReset);
+};
+export { onSetFormReset, onResetForm };
