@@ -48,7 +48,7 @@ export const getMarkupSimilarAnnouncements = (card) => {
         featuresListItem.remove();
       }
     });
-  };
+  }
 
   const popUpPhotoElement = popupPhotos;
   popUpPhotoElement.innerHTML = '';
