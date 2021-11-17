@@ -15,6 +15,7 @@ const activatePopupForm = () => {
   });
   mapFiltresElementFeatures.removeAttribute('disabled', '');
 };
+
 //Деактивация формы
 const deactivatePopupForm = () => {
   adForm.classList.add('ad-form--disabled');
