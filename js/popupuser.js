@@ -13,7 +13,7 @@ const onClickAndKeydown = (messageType) => {
   });
 };
 
-const onShowPopupSeccess = () => {
+const onShowPopupSuccess = () => {
   const successFormTemplate = document.querySelector('#success')
     .content
     .querySelector('.success');
@@ -32,4 +32,4 @@ const onShowPopupError = () => {
   onClickAndKeydown(errorMessage);
 };
 
-export { onShowPopupSeccess, onShowPopupError };
+export { onShowPopupSuccess, onShowPopupError };

@@ -1,4 +1,3 @@
-/* import { announcements } from './data.js'; */
 const cardTemplate = document.querySelector('#card').content;
 const popupContent = cardTemplate.querySelector('.popup');
 
@@ -9,9 +8,9 @@ const signaturesName = {
   palace: 'Дворец',
   hotel: 'Отель',
 };
-
+const checkForAvailability = (value, card) => value || card.classList.add('visually-hidden');
 // Генерация разметки похожих объявлений
-export const getMarkupSimilarAnnouncements = (card) => {
+export const getCardMarkup = (card) => {
   const cardElement = popupContent.cloneNode(true);
 
   const popupTitle = cardElement.querySelector('.popup__title');
@@ -23,16 +22,17 @@ export const getMarkupSimilarAnnouncements = (card) => {
   const popupTime = cardElement.querySelector('.popup__text--time');
   const popupDescription = cardElement.querySelector('.popup__description');
   const popupPhotos = cardElement.querySelector('.popup__photos');
+  const popupPhoto = cardElement.querySelector('.popup__photo');
   const popupAvatar = cardElement.querySelector('.popup__avatar');
 
-  popupTitle.textContent = card.offer.title;
-  popupAddress.textContent = card.offer.address;
-  popupPrice.textContent = `${card.offer.price} ₽/ночь`;
-  popupType.textContent = signaturesName[card.offer.type];
-  popupCapacity.textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
-  popupTime.textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
-  popupDescription.textContent = card.offer.description;
-  popupAvatar.src = card.author.avatar;
+  popupTitle.textContent = checkForAvailability(card.offer.title, popupTitle);
+  popupAddress.textContent = checkForAvailability(card.offer.address, popupAddress);
+  popupPrice.textContent = `${checkForAvailability(card.offer.price, popupPrice)} ₽/ночь`;
+  popupType.textContent = checkForAvailability(signaturesName[card.offer.type], popupType);
+  popupCapacity.textContent = `${checkForAvailability(card.offer.rooms, popupCapacity)} комнаты для ${checkForAvailability(card.offer.guests, popupCapacity)} гостей`;
+  popupTime.textContent = `Заезд после ${checkForAvailability(card.offer.checkin, popupTime)}, выезд до ${checkForAvailability(card.offer.checkout, popupTime)}`;
+  popupDescription.textContent = checkForAvailability(card.offer.description, popupDescription);
+  popupAvatar.src = checkForAvailability(card.author.avatar, popupAvatar);
 
 
   if (!card.offer.features) {
@@ -50,18 +50,20 @@ export const getMarkupSimilarAnnouncements = (card) => {
     });
   }
 
-  const popUpPhotoElement = popupPhotos;
-  popUpPhotoElement.innerHTML = '';
-  card.offer.photos.forEach((photoList) => {
-    const img = document.createElement('img');
-    img.classList.add('popup__photo');
-    img.src = photoList;
-    img.width = 40;
-    img.height = 45;
-    popUpPhotoElement.appendChild(img);
-  });
-
+  if (!card.offer.photos) {
+    popupPhotos.classList.add('visually-hidden');
+  } else {
+    popupPhotos.innerHTML = '';
+    card.offer.photos.forEach((photoItem) => {
+      const photo = popupPhoto.cloneNode(true);
+      if (photoItem) {
+        photo.src = photoItem;
+        popupPhotos.append(photo);
+      } else {
+        popupPhotos.classList.add('visually-hidden');
+        photo.alt = '';
+      }
+    });
+  }
   return cardElement;
 };
-
-export const getMarkupInput = getMarkupSimilarAnnouncements;

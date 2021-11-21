@@ -1,4 +1,4 @@
-const getData = () =>
+const getData = (onSucces, onFail) =>
   fetch('https://24.javascript.pages.academy/keksobooking/data',
     {
       method: 'GET',
@@ -10,9 +10,10 @@ const getData = () =>
       }
       throw new Error('Ошибка загрузки');
     })
-    .catch(() => {
-      throw new Error('Ошибка загрузки');
-    });
+    .then((response) => {
+      onSucces(response);
+    })
+    .catch(onFail);
 
 const sendData = (onSucces, onFail, body) => {
   fetch('https://24.javascript.pages.academy/keksobooking',

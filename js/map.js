@@ -1,16 +1,19 @@
-import { getMarkupInput } from './card.js';
-import { inputDataApi } from './main.js';
-import { activatePopupForm } from './popup-form.js';
-const markerGroup = L.layerGroup();
+import { getData } from './backend.js';
+import { getCardMarkup } from './card.js';
+import { onResetForm } from './form.js';
+import { activatePopupForm, activateMapFilters/* , disablePopupForm, disableMapFilters  */ } from './popup-form.js';
+
+const markersLayer = L.layerGroup();
 const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
   addressInput.value = '35.681729, 139.753927';
   activatePopupForm();
+  getData(onSuccess, onError);
 })
   .setView({
     lat: 35.681729,
     lng: 139.753927,
-  }, 10);
+  }, 13);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -35,26 +38,29 @@ const mainPin = L.marker(
     icon: mainPinIcon,
   },
 );
-
 mainPin.addTo(map);
 
-inputDataApi.map((card) => {
-  const icon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+
+const createMarkers = (cards) => {
+  cards.map((card) => {
+    const icon = L.icon({
+      iconUrl: 'img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+    const marker = L.marker({
+      lat: card.location.lat,
+      lng: card.location.lng,
+    },
+    {
+      icon,
+    });
+    marker
+      .addTo(markersLayer)
+      .bindPopup(getCardMarkup(card));
   });
-  const marker = L.marker({
-    lat: card.location.lat,
-    lng: card.location.lng,
-  },
-  {
-    icon,
-  });
-  marker
-    .addTo(map)
-    .bindPopup(getMarkupInput(card));
-});
+  markersLayer.addTo(map);
+};
 
 const resetMapAndMarker = () => {
   mainPin.setLatLng({
@@ -67,15 +73,20 @@ const resetMapAndMarker = () => {
     lng: 139.692,
   }, 10);
   map.closePopup();
+  addressInput.value = `${mainPin.getLatLng().lat.toFixed(5)}, ${mainPin.getLatLng().lng.toFixed(5)}`;
 };
 
-const onRemovePins = () => {
-  markerGroup.clearLayers();
-};
+function onSuccess(cards) {
+  createMarkers(cards);
+  activateMapFilters();
+}
+//Нужно добавить текст ошибки
+function onError() {
+}
 
 mainPin.on('move', (evt) => {
   const mainPinCoordinates = (evt.target.getLatLng());
   addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
 });
-
-export { resetMapAndMarker, onRemovePins };
+onResetForm();
+export { resetMapAndMarker, createMarkers };
