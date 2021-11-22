@@ -1,4 +1,4 @@
-const getData = (onSucces, onFail) =>
+const getData = (onSucces, onFail, onFilterChangeSelect) =>
   fetch('https://24.javascript.pages.academy/keksobooking/data',
     {
       method: 'GET',
@@ -12,6 +12,7 @@ const getData = (onSucces, onFail) =>
     })
     .then((response) => {
       onSucces(response);
+      onFilterChangeSelect(response);
     })
     .catch(onFail);
 
