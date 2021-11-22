@@ -1,5 +1,6 @@
 import { getData } from './backend.js';
 import { getCardMarkup } from './card.js';
+import { onFilterChangeSelect } from './filter.js';
 import { onResetForm } from './form.js';
 import { activatePopupForm, activateMapFilters/* , disablePopupForm, disableMapFilters  */ } from './popup-form.js';
 
@@ -8,7 +9,7 @@ const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
   addressInput.value = '35.681729, 139.753927';
   activatePopupForm();
-  getData(onSuccess, onError);
+  getData(onSuccess, onError, onFilterChangeSelect);
 })
   .setView({
     lat: 35.681729,
@@ -83,10 +84,14 @@ function onSuccess(cards) {
 //Нужно добавить текст ошибки
 function onError() {
 }
+const removePins = () => {
+  markersLayer.clearLayers();
+};
 
 mainPin.on('move', (evt) => {
   const mainPinCoordinates = (evt.target.getLatLng());
   addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
 });
 onResetForm();
-export { resetMapAndMarker, createMarkers };
+
+export { resetMapAndMarker, createMarkers, removePins };
