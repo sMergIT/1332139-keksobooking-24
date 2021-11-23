@@ -1,6 +1,7 @@
+import { onClearPreview } from './avatar.js';
 import { sendData } from './backend.js';
 import { resetMapAndMarker } from './map.js';
-import { onShowPopupError, onShowPopupSeccess } from './popupuser.js';
+import { onShowPopupError, onShowPopupSuccess } from './popupuser.js';
 
 const selectionOfGuestRooms = {
   1: [1],
@@ -50,7 +51,7 @@ const onChangeTime = (evt) => {
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
-  sendData(onShowPopupSeccess, onShowPopupError, formData);
+  sendData(onShowPopupSuccess, onShowPopupError, formData);
 });
 
 // Проверка присвоения минимальной цены в зависимости от типа жилья
@@ -70,10 +71,12 @@ const adFormValidition = () => {
 adFormValidition();
 
 //Сброс плейсхолдера и формы
-const onSetFormReset = () => {
+const onSetFormReset = (evt) => {
+  evt.preventDefault();
   adForm.reset();
   adPrice.placeholder = PRICE_DEFAULT;
   adPrice.min = PRICE_DEFAULT;
+  onClearPreview();
   resetMapAndMarker();
 };
 
