@@ -1,3 +1,4 @@
+import { onClearPreview } from './avatar.js';
 import { sendData } from './backend.js';
 import { resetMapAndMarker } from './map.js';
 import { onShowPopupError, onShowPopupSuccess } from './popupuser.js';
@@ -70,10 +71,12 @@ const adFormValidition = () => {
 adFormValidition();
 
 //Сброс плейсхолдера и формы
-const onSetFormReset = () => {
+const onSetFormReset = (evt) => {
+  evt.preventDefault();
   adForm.reset();
   adPrice.placeholder = PRICE_DEFAULT;
   adPrice.min = PRICE_DEFAULT;
+  onClearPreview();
   resetMapAndMarker();
 };
 

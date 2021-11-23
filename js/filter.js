@@ -8,7 +8,6 @@ const priceRange = {
   middle: { min: 10000, max: 50000 },
   high: { min: 50000, max: 1000000 },
 };
-
 const onFilterSelect = document.querySelector('.map__filters');
 const housingTypeSelect = onFilterSelect.querySelector('#housing-type');
 const housingPriceSelect = onFilterSelect.querySelector('#housing-price');
@@ -55,10 +54,10 @@ const onFilterChangeSelect = (cardArray) => {
   onFilterSelect.addEventListener('change', _.debounce(() => {
     const resultFilter = cardArray.filter((offer) => onCheckFeatures(offer) && onCheckType(offer) && onCheckPrice(offer) && onCheckNumberRooms(offer) && onCheckGuests(offer));
     removePins();
-    createMarkers(resultFilter.slince(0, QUANTITY__ELEMENTS));
+    createMarkers(resultFilter.slice(0, QUANTITY__ELEMENTS));
   },
   RENDER__DELAY,
   ));
 };
 
-export { onFilterChangeSelect, QUANTITY__ELEMENTS};
+export { onFilterChangeSelect, QUANTITY__ELEMENTS };
