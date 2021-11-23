@@ -1,4 +1,7 @@
-const getData = (onSucces, onFail, onFilterChangeSelect) =>
+import { onFilterChangeSelect, QUANTITY__ELEMENTS } from './filter.js';
+
+
+const getData = (onSucces, onFail) =>
   fetch('https://24.javascript.pages.academy/keksobooking/data',
     {
       method: 'GET',
@@ -11,8 +14,8 @@ const getData = (onSucces, onFail, onFilterChangeSelect) =>
       throw new Error('Ошибка загрузки');
     })
     .then((response) => {
-      onSucces(response);
-      onFilterChangeSelect(response);
+      onSucces(response.slice(0,QUANTITY__ELEMENTS));
+      onFilterChangeSelect(response.slice(0,QUANTITY__ELEMENTS));
     })
     .catch(onFail);
 

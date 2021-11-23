@@ -1,15 +1,15 @@
 import { getData } from './backend.js';
 import { getCardMarkup } from './card.js';
 import { onFilterChangeSelect } from './filter.js';
-import { onResetForm } from './form.js';
-import { activatePopupForm, activateMapFilters/* , disablePopupForm, disableMapFilters  */ } from './popup-form.js';
+import { onResetForm, onSetFormReset } from './form.js';
+import { activatePopupForm, activateMapFilters } from './popup-form.js';
 
 const markersLayer = L.layerGroup();
 const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
   addressInput.value = '35.681729, 139.753927';
   activatePopupForm();
-  getData(onSuccess, onError, onFilterChangeSelect);
+  getData(onSuccess, onFilterChangeSelect);
 })
   .setView({
     lat: 35.681729,
@@ -81,9 +81,21 @@ function onSuccess(cards) {
   createMarkers(cards);
   activateMapFilters();
 }
+
 //Нужно добавить текст ошибки
-function onError() {
-}
+const onError = (message) => {
+  const mainPage = document.querySelector('main)');
+  const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  const errorElement = errorTemplate.cloneNode(true);
+  const errorMessage = errorElement.querySelector('.error__message');
+  const errorButton = errorElement.querySelector('.error__button');
+
+  errorElement.classList.add('notification');
+  errorMessage.textContent = message;
+  errorButton.addEventListener('keybord', onSetFormReset);
+  mainPage.appendChild(errorElement);
+};
+
 const removePins = () => {
   markersLayer.clearLayers();
 };
@@ -94,4 +106,4 @@ mainPin.on('move', (evt) => {
 });
 onResetForm();
 
-export { resetMapAndMarker, createMarkers, removePins };
+export { resetMapAndMarker, createMarkers, removePins, onError };
