@@ -1,0 +1,12 @@
+import './card.js';
+import './map.js';
+import './form.js';
+import { activateMapFilters, activatePopupForm, disableMapFilters, disablePopupForm } from './popup-form.js';
+import './popupuser.js';
+import './filter.js';
+import './backend.js';
+import './avatar.js';
+disablePopupForm();
+disableMapFilters();
+activatePopupForm();
+activateMapFilters();
